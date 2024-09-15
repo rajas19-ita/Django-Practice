@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    state
+{% endblock %}
+
+{% block content %}
+    <main class="d-flex flex-column align-items-center p-3 row-gap-3">
+        <form method="post" action="{% url 'state:state_add' %}">
+            {% csrf_token %}
+            <table class="table table-bordered border-secondary">
+                <tbody>
+                    {% for field in state_form %}
+                        <tr>
+                            <th class="opacity-75">{{field.label_tag}}</th>
+                            <td>    
+                                {{field}}
+                            </td>
+                        </tr>                    
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <button class="btn btn-primary mx-auto" type="submit">Add State</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="d-flex column-gap-2">
+            {% for state in state_list %}
+                <a href="{% url 'state:state_details' state.id %}" class="btn btn-outline-secondary">{{state.name}}</a>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

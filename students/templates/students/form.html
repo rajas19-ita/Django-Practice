@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    students form
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'students/css/style.css' %}" >
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'students:student_form' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        {% if form.errors %}
+            <p>Error!! Please try again.</p>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    student details
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'students/css/style.css' %}" >
+{% endblock %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'students:student_form' %}" >+ Add Student Details</a>
+    <table>
+        <thead>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for student in student_list %}
+                <tr>
+                    <td>{{student.id}}</td>
+                    <td><input id="text-{{student.id}}" type="text" value="{{student.student_name}}" class="form-control text-black student-input-{{student.id}}" disabled="true"></td>
+                    <td><input id="email-{{student.id}}" type="email" value="{{student.email}}" class="form-control text-black student-input-{{student.id}}" disabled="true" ></td>
+                    <td><input id="age-{{student.id}}" type="number" value="{{student.age}}" class="form-control text-black student-input-{{student.id}}" disabled="true" ></td>
+                    <td>
+                        <button id="edit-btn-{{student.id}}" class="edit-btn btn btn-outline-success">Edit</button>
+                        <button hidden id="update-btn-{{student.id}}" class="update-btn btn btn-outline-warning">Update</button>
+                        <a href="{% url 'students:student_delete' student.id %}" id="delete-btn-{{student.id}}" class="delete-btn btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        const editBtnList = document.querySelectorAll('.edit-btn')
+        const updateBtnList = document.querySelectorAll('.update-btn')
+        function editDetails(e) {
+            let id = e.target.id.split('-')[2]
+            let inputs = document.querySelectorAll(`.student-input-${id}`)
+            for(let i=0; i<inputs.length; i++){
+                inputs[i].removeAttribute('disabled')
+            }
+            document.getElementById(`update-btn-${id}`).removeAttribute('hidden')
+            e.target.setAttribute('hidden',true)
+        }
+        function updateDetails(e){
+            let id = e.target.id.split('-')[2]
+            let inputs = document.querySelectorAll(`.student-input-${id}`)
+            fetch(`/students/update/${id}`,{
+                method:'PATCH',
+                headers:{
+                    'Content-Type':'application/json',
+                    'X-CSRFToken': '{% csrf_token %}'
+                },
+                body:JSON.stringify({
+                    id,
+                    'student_name':document.getElementById(`text-${id}`).value,
+                    email : document.getElementById(`email-${id}`).value,
+                    age: document.getElementById(`age-${id}`).value
+                })
+            }).then((d)=>{
+                document.getElementById(`edit-btn-${id}`).removeAttribute('hidden')
+                e.target.setAttribute('hidden',true)
+                for(let i=0; i<inputs.length; i++){
+                    inputs[i].setAttribute('disabled',true)
+                }
+            }).catch((e)=>{
+                console.log(e)
+            })
+        }
+        
+        for(let i=0; i<editBtnList.length; i++){
+                editBtnList[i].addEventListener('click',editDetails)
+                updateBtnList[i].addEventListener('click',updateDetails)
+        }
+        
+    </script>
+{% endblock %}
+
+
+

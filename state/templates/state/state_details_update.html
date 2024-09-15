@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    state
+{% endblock %}
+
+{% block content %}
+    <main class="d-flex flex-column align-items-center p-3 row-gap-3">
+        <form method="post" action="{% url 'state:state_update' state.id %}">
+            {% csrf_token %}
+            <table class="table table-bordered border-secondary">
+                <tbody>
+                    {% for field in form %}
+                        <tr>
+                            <th class="opacity-75">{{field.label_tag}}</th>
+                            <td>    
+                                {{field}}
+                            </td>
+                        </tr>                    
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <button class="btn btn-primary mx-auto" type="submit">Update State</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </main>
+{% endblock %}

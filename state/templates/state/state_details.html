@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}
+    {{state.name}}
+{% endblock %}
+
+{% block content %}
+    <main class="">
+        <div class="d-flex align-items-center justify-content-center mt-5 ">
+            <div class="w-50 py-5 px-4 rounded-2 shadow d-flex flex-column align-items-center row-gap-2">
+                <h1 class="fw-semibold mb-4">{{state.name}}</h1>
+                <div class="d-flex align-items-center column-gap-2">
+                    <h2 class="fs-5 fw-bold opacity-75 mb-0">Capital :</h2>
+                    <span class="state-detail fs-5 opacity-75 fw-medium" data-type="text" data-name="capital" >{{state.capital}}</span>
+                </div>
+                <div class="d-flex align-items-center column-gap-2">
+                    <h2 class="fs-5 fw-bold opacity-75 mb-0">Language :</h2>
+                    <span class="state-detail fs-5 opacity-75 fw-medium" data-type="text" data-name="language" >{{state.language}}</span>
+                </div>
+                <div class="d-flex align-items-center column-gap-2">
+                    <h2 class="fs-5 fw-bold opacity-75 mb-0">Population :</h2>
+                    <span class="state-detail fs-5 opacity-75 fw-medium" data-type="number" data-name="population" >{{state.population|intcomma}}</span>
+                </div>
+                <div class="d-flex align-self-end mt-3 column-gap-1">
+                    <a href="{% url 'state:state_update' state.id %}" id="edit_btn" class="btn btn-outline-success">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a href="{% url 'state:state_delete' state.id %}" id="delete_btn" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
