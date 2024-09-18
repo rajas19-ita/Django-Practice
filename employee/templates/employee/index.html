@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Employees
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="row mx-auto p-4 column-gap-3 row-gap-3">
+        <form method="post" action="{% url 'employee:emp_create' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{emp_form.as_p}}
+            {{emp_form.errors_list}}
+            <button type="submit" class="btn btn-primary">Add New</button>
+        </form>
+        {% if error %}<p class="p-4 border border-danger text-danger fw-medium">{{error}}</p>{% endif %}
+        <table class="table  table-bordered border-secondary">
+            <thead>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+            </thead>
+            <tbody>
+                {% for employee in employee_list %}
+                    <tr>
+                        <td>{{employee.id}}</td>
+                        <td><a href="{% url 'employee:emp_details' employee.id %}">{{employee.fname}} {{employee.lname}}</a></td>
+                        <td>{{employee.age}}</td>
+                        <td>{{employee.address}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

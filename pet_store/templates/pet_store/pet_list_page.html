@@ -1,0 +1,17 @@
+{% extends 'pet_store/base.html' %}
+
+{% block title %}
+    pets list
+{% endblock %}
+
+{% block content %}
+    <div class="p-5 d-flex column-gap-2"> 
+    {% for pet in pet_list %}
+        <div class="bg-white p-3 rounded-2 shadow">
+            <h1>{{pet.name}}</h1>
+            <p>breed: {{pet.breed}}</p>
+            <p>price: {{pet.price}}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

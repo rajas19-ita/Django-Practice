@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{employee.fname}} {{employee.lname}}
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+            <img src="{% if employee.profile_image %}{{employee.profile_image.url}}{% else %}{% static 'employee/default.jpg' %}{% endif %}" class="card-img-top" >
+            <div class="card-body">
+            <h2 class="card-title">{{employee.fname}} {{employee.lname}}</h2>
+            <p class="card-text mb-0"><span class="fw-semibold">Age:</span> {{employee.age}}</p>
+            <p class="card-text"><span class="fw-semibold">Address:</span> {{employee.address}}</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,16 @@
+<header class="p-3 bg-white rounded-bottom-2">
+    <nav>
+        <ul class="d-flex list-unstyled column-gap-4 align-items-center justify-content-end mb-0">
+            <li><a href="{% url 'client_project_app:index' %}" class="link-primary link-underline-opacity-50">home</a></li>
+            <li><a href="{% url 'client_project_app:client_list' %}" class="link-primary link-underline-opacity-50">clients</a></li>
+            <li><a href="{% url 'client_project_app:create_project' %}" class="link-primary link-underline-opacity-50">Create Project</a></li>
+            <li><a href="{% url 'client_project_app:create_client' %}" class="link-primary link-underline-opacity-50">Register Client</a></li>
+            <li>
+                <form method="post" action="{% url 'client_project_app:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-secondary">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>

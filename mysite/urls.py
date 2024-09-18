@@ -16,10 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('greetings/', include('greetings.urls')),
     path('students/', include('students.urls')),
-    path('state/', include('state.urls'))
-]
+    path('state/', include('state.urls')),
+    path('employee/', include('employee.urls')),
+    path('media/', include('media_app.urls')),
+    path('cookie-session-app/', include('cookie_session_app.urls')),
+    path('client-project-app/', include('client_project.urls')),
+    path('bootstrap-practice-app/', include('bootstrap_practice_app.urls')),
+    path('cart/', include('cart.urls')),
+    path('orders/', include('orders.urls')),
+    path('pet-store/', include('pet_store.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

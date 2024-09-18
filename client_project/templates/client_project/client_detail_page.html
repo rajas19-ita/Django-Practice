@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    client {{client.name}}
+{% endblock %}
+
+{% block content %}
+    <main class="h-100 min-vh-100">
+        <div class="container bg-body-secondary h-100 min-vh-100 px-3">
+            {% include 'client_project/includes/header.html' %}
+            <div class="d-flex mt-4 justify-content-center">
+                <div class="p-4 rounded-2 bg-white w-50">
+                    <h3 class="mb-3">{{client.name}}</h3>
+                    <p>{{client.email}}</p>
+                    <p>{{client.address}}</p>
+                    <div class="d-flex mt-3 column-gap-1">
+                        <a href="{% url 'client_project_app:update_client' client.id %}" id="edit_btn" class="btn btn-outline-success">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                        <a href="{% url 'client_project_app:delete_client' client.id %}" id="delete_btn" class="btn btn-outline-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

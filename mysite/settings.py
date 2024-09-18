@@ -41,7 +41,15 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'greetings',
     'students',
-    'state'
+    'state',
+    'employee',
+    'media_app',
+    'cookie_session_app',
+    'client_project',
+    'bootstrap_practice_app',
+    'cart',
+    'orders',
+    'pet_store'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +138,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_URL = 'uploads/'
